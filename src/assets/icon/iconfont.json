@@ -1,0 +1,23 @@
+{
+  "id": "2557373",
+  "name": "vue-shop-backstagemanagement",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "vue-shop-backstagemanagement",
+  "glyphs": [
+    {
+      "icon_id": "8084566",
+      "name": "密码",
+      "font_class": "mima",
+      "unicode": "e618",
+      "unicode_decimal": 58904
+    },
+    {
+      "icon_id": "10143467",
+      "name": "用户",
+      "font_class": "yonghu",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    }
+  ]
+}
