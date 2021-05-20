@@ -1,8 +1,8 @@
 @font-face {
   font-family: "iconfont"; /* Project id 2557373 */
-  src: url('iconfont.woff2?t=1621393305125') format('woff2'),
-       url('iconfont.woff?t=1621393305125') format('woff'),
-       url('iconfont.ttf?t=1621393305125') format('truetype');
+  src: url('iconfont.woff2?t=1621496726579') format('woff2'),
+       url('iconfont.woff?t=1621496726579') format('woff'),
+       url('iconfont.ttf?t=1621496726579') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,58 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-icon04:before {
+  content: "\e601";
+}
+
+.icon-shujutongji:before {
+  content: "\e620";
+}
+
+.icon-role-list:before {
+  content: "\e60e";
+}
+
+.icon-permissions-list:before {
+  content: "\e619";
+}
+
+.icon-dingdanliebiao:before {
+  content: "\e668";
+}
+
+.icon-shangpinliebiao:before {
+  content: "\e609";
+}
+
+.icon-quanxianguanli:before {
+  content: "\e62d";
+}
+
+.icon-yonghuguanli_huaban:before {
+  content: "\e62e";
+}
+
+.icon-yonghuliebiao:before {
+  content: "\e657";
+}
+
+.icon-dingdanguanli:before {
+  content: "\e61a";
+}
+
+.icon-canshuxinxi:before {
+  content: "\e7ec";
+}
+
+.icon-shujubaobiao:before {
+  content: "\e678";
+}
+
+.icon-shangpinguanli:before {
+  content: "\e63e";
 }
 
 .icon-mima:before {

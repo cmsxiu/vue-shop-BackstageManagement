@@ -6,6 +6,97 @@
   "description": "vue-shop-backstagemanagement",
   "glyphs": [
     {
+      "icon_id": "745282",
+      "name": "分类",
+      "font_class": "icon04",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "2129918",
+      "name": "数据统计",
+      "font_class": "shujutongji",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
+      "icon_id": "3283488",
+      "name": "角色列表",
+      "font_class": "role-list",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "3285903",
+      "name": "权限列表",
+      "font_class": "permissions-list",
+      "unicode": "e619",
+      "unicode_decimal": 58905
+    },
+    {
+      "icon_id": "6554427",
+      "name": "订单列表",
+      "font_class": "dingdanliebiao",
+      "unicode": "e668",
+      "unicode_decimal": 58984
+    },
+    {
+      "icon_id": "7499627",
+      "name": "商品列表",
+      "font_class": "shangpinliebiao",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "9537807",
+      "name": "权限管理",
+      "font_class": "quanxianguanli",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "12753449",
+      "name": "用户管理",
+      "font_class": "yonghuguanli_huaban",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    },
+    {
+      "icon_id": "13872530",
+      "name": "用户列表",
+      "font_class": "yonghuliebiao",
+      "unicode": "e657",
+      "unicode_decimal": 58967
+    },
+    {
+      "icon_id": "15450076",
+      "name": "订单管理",
+      "font_class": "dingdanguanli",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
+    },
+    {
+      "icon_id": "16198350",
+      "name": "参数信息",
+      "font_class": "canshuxinxi",
+      "unicode": "e7ec",
+      "unicode_decimal": 59372
+    },
+    {
+      "icon_id": "16746825",
+      "name": "数据报表",
+      "font_class": "shujubaobiao",
+      "unicode": "e678",
+      "unicode_decimal": 59000
+    },
+    {
+      "icon_id": "17343776",
+      "name": "商品管理",
+      "font_class": "shangpinguanli",
+      "unicode": "e63e",
+      "unicode_decimal": 58942
+    },
+    {
       "icon_id": "8084566",
       "name": "密码",
       "font_class": "mima",
