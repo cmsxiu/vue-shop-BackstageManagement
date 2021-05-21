@@ -6,3 +6,13 @@ body,
   margin: 0;
   padding: 0;
 }
+
+/*
+  文件：user/users
+  问题：行高太大
+  修改：el-table 中 th 的行高值
+*/
+.el-table__header th {
+  /* line-height: 0; */
+  line-height: normal !important;
+}

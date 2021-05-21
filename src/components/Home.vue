@@ -16,7 +16,7 @@
     <el-container>
       <el-aside :width="is_collapse ? '64px' : '200px'">
         <el-menu
-          default-active="1"
+          :default-active="default_active"
           class="el-menu-vertical-demo"
           background-color="#333744"
           text-color="#ccc"
@@ -24,6 +24,7 @@
           unique-opened
           :collapse="is_collapse"
           :collapse-transition="false"
+          router
         >
           <el-button
             size="medium"
@@ -44,9 +45,10 @@
 
             <!-- 二级菜单 -->
             <el-menu-item
-              :index="String(submenu.id)"
+              :index="'/' + submenu.path"
               v-for="(submenu, list) in item.children"
               :key="submenu.id"
+              @click="add_default_active('/' + submenu.path)"
             >
               <template slot="title">
                 <i :class="iconList[index].children[list].icon"></i>
@@ -141,7 +143,8 @@ export default {
         }]
       }],
       is_collapse: false,
-      open_symbol: '<<<'
+      open_symbol: '<<<',
+      default_active: '/users' // 默认地址
     }
   },
   methods: {
@@ -158,11 +161,17 @@ export default {
     change_collapse () {
       this.is_collapse = !this.is_collapse
       this.open_symbol = this.is_collapse ? '>>>' : '<<<'
+    },
+    add_default_active (path) {
+      // 解决高亮
+      this.default_active = path
+      window.sessionStorage.setItem('active_path', path)
     }
   },
   created () {
     // 获取菜单数据
     this.getMenuList()
+    this.default_active = window.sessionStorage.getItem('active_path')
   }
 }
 </script>
