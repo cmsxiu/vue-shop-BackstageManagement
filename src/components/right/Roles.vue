@@ -23,6 +23,52 @@
         :row-style="{lineHeight: '80px'}"
       >
         <el-table-column type="expand">
+          <template v-slot="slot">
+            <el-row
+              v-for="(item, index1) in slot.row.children"
+              :key="index1"
+              :class="['border_bottom', 'border_left', 'vcenter', index1 == 0 ? 'border_top' : '']"
+            >
+              <el-col :span="5">
+                <el-tag
+                  closable
+                  @close="removeTag(slot.row, item.id)"
+                >{{item.authName}}</el-tag>
+                <i class="el-icon-caret-right"></i>
+              </el-col>
+              <el-col :span="19">
+                <el-row
+                  v-for="(item2, index2) in item.children"
+                  :key="item2.id"
+                  :class="['vcenter', 'border_left', 'border_right', index2 !== 0 ? 'border_top' : '']"
+                >
+                  <!-- 二级 -->
+                  <el-col :span="6">
+                    <el-tag
+                      type="success"
+                      closable
+                      @close="removeTag(slot.row, item2.id)"
+                    >{{item2.authName}}</el-tag>
+                    <i class="el-icon-caret-right"></i>
+                  </el-col>
+                  <!-- 三级 -->
+                  <el-col
+                    :span="18"
+                    style="text-align: left"
+                  >
+                    <el-tag
+                      type="info"
+                      closable
+                      v-for="item3 in item2.children"
+                      :key="item3.id"
+                      @close="removeTag(slot.row, item3.id)"
+                    >{{item3.authName}}</el-tag>
+                  </el-col>
+                </el-row>
+              </el-col>
+            </el-row>
+            <!-- <pre>{{slot.row}}</pre> -->
+          </template>
         </el-table-column>
         <el-table-column
           prop="roleName"
@@ -75,7 +121,7 @@
                 type="warning"
                 icon="el-icon-setting"
                 size="mini"
-                @click="openSetUserRole(operation.row.id)"
+                @click="openSetRight(operation.row)"
               ></el-button>
             </el-tooltip>
 
@@ -184,6 +230,37 @@
           >确 定</el-button>
         </div>
       </el-dialog>
+
+      <!-- 修改角色权限面板 -->
+      <el-dialog
+        title="修改权限"
+        :visible.sync="setRightDialog"
+        width="50%"
+        @close="closeSetRight"
+      >
+        <el-tree
+          :data="rightsList"
+          show-checkbox
+          :props="treeProps"
+          node-key="id"
+          default-expand-all
+          :check-on-click-node="true"
+          :default-checked-keys="defaultKey"
+          ref="treeRef"
+        >
+        </el-tree>
+        <span
+          slot="footer"
+          class="dialog-footer"
+        >
+          <el-button @click="closeSetRight">取 消</el-button>
+          <el-button
+            type="primary"
+            @click="setRightBtn"
+          >确 定</el-button>
+        </span>
+      </el-dialog>
+
     </el-card>
   </div>
 </template>
@@ -196,6 +273,11 @@ export default {
         roleName: '',
         roleDesc: ''
       },
+      rightsList: [], // 所有权限列表
+      treeProps: {
+        label: 'authName',
+        children: 'children'
+      }, // 默认
       // 添加角色
       addRolesDialog: false,
       addRolesRules: {
@@ -219,8 +301,13 @@ export default {
           { required: true, message: '请输入角色描述', trigger: 'blur' },
           { min: 2, max: 16, message: '色描述长度在 2 到 16 个字符', trigger: ['blur', 'change'] }
         ]
-      }
+      },
       // 修改权限
+      setRightDialog: false,
+      // 默认选中
+      defaultKey: [],
+      // role.id
+      roleId: ''
     }
   },
   methods: {
@@ -230,7 +317,6 @@ export default {
         return this.$message.error('获取角色列表数据失败')
       }
       this.rolesList = res.data
-      console.log(res.data)
     },
     addRolesBtn () {
       // 添加新角色
@@ -316,8 +402,68 @@ export default {
       this.getRolesList()
     },
     // 修改权限
-    openSetUserRole () {
+    async openSetRight (roles) {
+      // 获取所有权限
+      const { data: res } = await this.$http.get('rights/tree')
+      if (res.meta.status !== 200) {
+        return this.$message.error('获取权限列表失败：' + res.meta.msg)
+      }
+      this.rightsList = res.data
+      // 递归三级节点
+      this.getdkey(roles, this.defaultKey)
+      this.setRightDialog = true
+      this.roleId = roles.id
+    },
+    // 获取权限
+    getdkey (node, arr) {
+      // 查看node是否是第三级
+      if (!node.children) {
+        // 是第三级，直接赋值
+        return arr.push(node.id)
+      }
+      // 不是，就继续递归
+      node.children.forEach(item => this.getdkey(item, arr))
+    },
+    // 提交权限设置
+    async setRightBtn () {
+      const keys = [
+        ...this.$refs.treeRef.getHalfCheckedKeys(),
+        ...this.$refs.treeRef.getCheckedKeys()
+      ]
+      const idStr = keys.join(',')
+      const { data: res } = await this.$http.post('roles/' + this.roleId + '/rights', {
+        rids: idStr
+      })
+      if (res.meta.status !== 200) return this.$message.error('操作失败：' + res.meta.msg)
+      this.$message.success('操作成功！')
+      this.getRolesList()
+      this.setRightDialog = false
+    },
+    // 取消权限设置
+    closeSetRight () {
+      this.defaultKey = []
+      this.setRightDialog = false
+    },
+    // 删除权限
+    async removeTag (roles, rid) {
+      const confirmRes = await this.$confirm(
+        '请确认取消该用户的此权限',
+        '提示',
+        {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }
+      ).catch(err => err)
 
+      if (confirmRes !== 'confirm') {
+        return this.$message.info('您取消了操作！')
+      }
+      const { data: res } = await this.$http.delete('roles/' + roles.id + '/rights/' + rid)
+      if (res.meta.status !== 200) return this.$message.error('操作失败：' + res.meta.msg)
+      this.$message.success('操作成功！')
+      // 将最新的权限，赋值给该角色
+      roles.children = res.data
     }
   },
   mounted () {
@@ -341,6 +487,30 @@ export default {
 
   .text {
     font-size: 12px;
+  }
+
+  .el-tag {
+    margin: 7px 7px 7px 0;
+  }
+
+  .border_top {
+    border-top: 1px solid #eee;
+  }
+
+  .border_bottom {
+    border-bottom: 1px solid #eee;
+  }
+  .border_left {
+    border-left: 1px solid #eee;
+  }
+
+  .border_right {
+    border-right: 1px solid #eee;
+  }
+  .vcenter {
+    display: flex;
+    align-items: center;
+    text-align: center;
   }
 }
 </style>
