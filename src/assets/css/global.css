@@ -16,3 +16,10 @@ body,
   /* line-height: 0; */
   line-height: normal !important;
 }
+.el-container .el-main {
+  line-height: normal !important;
+  text-align: left;
+}
+.el-dialog__header {
+  text-align: left;
+}
