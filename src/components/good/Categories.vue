@@ -19,40 +19,34 @@
             class="addCategorires"
           >添加分类</el-button>
         </div>
-        <!-- 拷贝 cmsxiuTeam -->
         <!-- 表格 -->
         <el-table
-          :data="goodsList"
+          :data="cateList"
           stripe
           border
         >
-          {{goodsList}}
+          {{cateList}}
           <el-table-column
             type="index"
             label="#"
           >
           </el-table-column>
           <el-table-column
-            prop="goods_name"
-            label="商品名称"
+            prop="cat_name"
+            label="分类名称"
             width="500px"
+            type="expand"
           >
           </el-table-column>
           <el-table-column
-            prop="goods_price"
-            label="商品价格（元）"
+            prop="cat_level"
+            label="是否有效"
           >
           </el-table-column>
           <el-table-column
-            prop="goods_weight"
-            label="商品重量"
+            prop="cat_level"
+            label="排序"
           >
-          </el-table-column>
-          <el-table-column
-            prop="upd_time"
-            label="创建时间"
-          >
-
           </el-table-column>
           <el-table-column label="操作">
             <template v-slot="operation">
@@ -93,9 +87,9 @@
       <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page="goodsQuery.pagenum"
+        :current-page="queryInfo.pagenum"
         :page-sizes="[10, 20, 50, 100]"
-        :page-size="goodsQuery.pagesize"
+        :page-size="queryInfo.pagesize"
         layout="total, sizes, prev, pager, next, jumper"
         :total="total"
       >
@@ -107,29 +101,30 @@
 export default {
   data () {
     return {
-      goodsList: [],
-      goodsQuery: {
-        query: '',
+      cateList: [],
+      queryInfo: {
+        type: '',
         pagenum: 1,
-        pagesize: 10 // 当前每页显示多少数据
+        pagesize: 5 // 当前每页显示多少数据
       },
       total: 0,
       addCategoriresDialog: false
     }
   },
   methods: {
-    async getGoodsList () {
-      const { data: res } = await this.$http.get('goods', {
-        params: this.goodsQuery
+    async getcateList () {
+      const { data: res } = await this.$http.get('categories', {
+        params: this.queryInfo
       })
       if (res.meta.status !== 200) return this.$message.error('数据获取失败：' + res.meta.msg)
-      this.goodsList = res.data.goods
+      console.log(res)
+      this.cateList = res.data.result
       this.total = res.data.total
     },
     // 查询商品
     async queryGoods () {
       const { data: res } = await this.$http.get('goods', {
-        params: this.goodsQuery
+        params: this.queryInfo
       })
       if (res.meta.status !== 200) return this.$message.error('数据获取失败：' + res.meta.msg)
 
@@ -138,8 +133,8 @@ export default {
       }
 
       this.total = res.data.total
-      this.goodsList = res.data.goods
-      this.getGoodsList()
+      this.cateList = res.data.goods
+      this.getcateList()
     },
     // 添加商品面板
     openAddCategoriresDialog () {
@@ -149,13 +144,13 @@ export default {
     // 分页
     handleSizeChange (newSize) {
       // 监听最新的 pagesize 的变化
-      this.goodsQuery.pagesize = newSize
-      this.getGoodsList()
+      this.queryInfo.pagesize = newSize
+      this.getcateList()
     },
     handleCurrentChange (newPage) {
       // 监听最新的页码值的变化
-      this.goodsQuery.pagenum = newPage
-      this.getGoodsList()
+      this.queryInfo.pagenum = newPage
+      this.getcateList()
     },
     // 打开编辑面板
     openEditGoods () { },
@@ -177,11 +172,11 @@ export default {
       const { data: res } = await this.$http.delete('goods/' + gid)
       if (res.meta.status !== 200) return this.$message.error('删除失败！')
       this.$message.success('删除成功！')
-      this.getGoodsList()
+      this.getcateList()
     }
   },
   mounted () {
-    this.getGoodsList()
+    this.getcateList()
   }
 }
 </script>

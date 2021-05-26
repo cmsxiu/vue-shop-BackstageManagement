@@ -5,8 +5,7 @@ import './plugins/element.js'
 // 引入axios
 import './plugins/http.config.js'
 /**
- *
- * import {get, post ,newAxios} from './plugins/http.js'
+ *import {get, post ,newAxios} from './plugins/http.js'
  */
 import './assets/css/global.css'
 import './assets/icon/iconfont.css'
