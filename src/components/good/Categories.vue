@@ -19,7 +19,7 @@
             class="addCategorires"
           >添加分类</el-button>
         </div>
-
+        <!-- 拷贝 cmsxiuTeam -->
         <!-- 表格 -->
         <el-table
           :data="goodsList"
