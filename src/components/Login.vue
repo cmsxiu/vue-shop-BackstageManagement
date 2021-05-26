@@ -75,38 +75,53 @@ export default {
   methods: {
     // 表单预验证
     loginBtn () {
-      this.$refs.loginFormRef.validate(async (valid, a) => {
+      this.$refs.loginFormRef.validate(async valid => {
         if (!valid) {
           return false
-        } else {
-          const { data: res } = await this.$http.post('login', this.loginForm)
-          // console.log(res)
-          if (res.meta.status !== 200) {
-            return this.$message.error('登录失败')
-          } else {
+        }
+        await this.$http.post('login', this.loginForm)
+          .then(res => {
+            if (res.status !== 200) {
+              return this.$message.error('登录失败')
+            }
             // 配置 token
-            window.sessionStorage.setItem('token', res.data.token)
-
+            window.sessionStorage.setItem('token', res.data.data.token)
             this.$router.push('/home')
-
             // 成功提示
             this.$message({
               type: 'success',
               duration: 1000,
-              message: res.meta.msg
+              message: res.data.meta.msg
             })
-          }
-          /*
-            // promise 方法接受
-            result
-              .then(res => {
-                if (res.status === 200) {
-                  console.log(res.data.meta.msg)
-                }
-              })
-              .catch(err => console.log(err))
-          */
-        }
+          })
+          .catch(err => {
+            this.$message.error('发生了错误：' + err)
+          })
+        /*
+        const {data: res} = await this.$http.post('login', this.loginForm)
+        if (res.meta.status !== 200) {
+          return this.$message.error('登录失败')
+        } else {
+          // 配置 token
+          window.sessionStorage.setItem('token', res.data.token)
+          this.$router.push('/home')
+          // 成功提示
+          this.$message({
+            type: 'success',
+            duration: 1000,
+            message: res.meta.msg
+          })
+        } */
+        /*
+          // promise 方法接受
+          result
+            .then(res => {
+              if (res.status === 200) {
+                console.log(res.data.meta.msg)
+              }
+            })
+            .catch(err => console.log(err))
+        */
       })
       // validate(callback,)
     },
