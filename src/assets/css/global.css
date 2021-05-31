@@ -24,3 +24,17 @@ body,
 .el-dialog__header {
   text-align: left;
 }
+.zk-icon-plus-square-o:before,
+.zk-icon-minus-square-o:before {
+  font-size: 12px;
+  color: #ccc;
+}
+.zk-icon-plus-square-o:before {
+  content: '\e61c' !important;
+}
+.zk-icon-minus-square-o:before {
+  content: '\e61d' !important;
+}
+.el-cascader-menu {
+  height: 300px;
+}

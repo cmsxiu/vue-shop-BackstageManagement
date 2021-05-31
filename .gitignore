@@ -3,7 +3,6 @@ node_modules
 /dist
 /src/assets/back-end/vue_api_server/.DS_Store
 /src/assets/back-end/vue_api_server/node_modules/
-/src/assets/back-end/vue_api_server/package-lock.json
 /src/assets/back-end/vue_api_server/tmp_uploads/
 /src/assets/back-end/vue_api_server/uploads/
 
