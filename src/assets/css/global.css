@@ -19,7 +19,7 @@ body,
 }
 .el-container .el-main {
   line-height: normal !important;
-  text-align: left;
+  text-align: inherit !important;
 }
 .el-dialog__header {
   text-align: left;
