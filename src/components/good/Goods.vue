@@ -70,7 +70,9 @@
             prop="upd_time"
             label="创建时间"
           >
-
+            <template v-slot="state">
+              {{state.row.upd_time | dateFormat}}
+            </template>
           </el-table-column>
           <el-table-column label="操作">
             <template v-slot="operation">
