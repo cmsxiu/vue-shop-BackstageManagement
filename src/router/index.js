@@ -11,6 +11,8 @@ import Orders from '../components/order/Orders.vue'
 import Reports from '../components/report/Reports.vue'
 import Rights from '../components/right/Rights.vue'
 import Roles from '../components/right/Roles.vue'
+import Add from '../components/good/Add.vue'
+import Edit from '../components/good/Edit.vue'
 
 Vue.use(VueRouter)
 
@@ -53,6 +55,16 @@ const router = new VueRouter({
           name: 'goods',
           describe: '商品管理 - 商品列表',
           component: Goods
+        }, {
+          path: '/goods/add',
+          name: 'add',
+          describe: '商品列表 - 添加商品',
+          component: Add
+        }, {
+          path: '/goods/edit',
+          name: 'edit',
+          describe: '商品列表 - 编辑商品',
+          component: Edit
         }, {
           path: '/params',
           name: 'params',

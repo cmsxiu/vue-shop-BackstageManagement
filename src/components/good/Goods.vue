@@ -32,7 +32,7 @@
             <el-col :span="3">
               <el-button
                 type="primary"
-                @click="openAddGoodsDialog"
+                @click="goAddGoods"
               >添加商品</el-button>
             </el-col>
           </el-row>
@@ -85,7 +85,7 @@
                   type="primary"
                   icon="el-icon-edit"
                   size="mini"
-                  @click="openEditGoods(operation.row.id)"
+                  @click="goEditGoods(operation.row)"
                 ></el-button>
               </el-tooltip>
               <el-tooltip
@@ -131,8 +131,7 @@ export default {
         pagenum: 1,
         pagesize: 10 // 当前每页显示多少数据
       },
-      total: 0,
-      addGoodsDialog: false
+      total: 0
     }
   },
   methods: {
@@ -159,11 +158,10 @@ export default {
       this.goodsList = res.data.goods
       this.getGoodsList()
     },
-    // 添加商品面板
-    openAddGoodsDialog () {
+    // 添加商品
+    goAddGoods () {
+      this.$router.push('/goods/add')
     },
-    // 关闭添加商品面板
-    closeAddGoodsDialog () { },
     // 分页
     handleSizeChange (newSize) {
       // 监听最新的 pagesize 的变化
@@ -176,7 +174,15 @@ export default {
       this.getGoodsList()
     },
     // 打开编辑面板
-    openEditGoods () { },
+    goEditGoods (data) {
+      console.log(data.goods_id)
+      this.$router.push({
+        path: '/goods/edit',
+        query: {
+          goodsId: data.goods_id
+        }
+      })
+    },
     // 删除商品
     async delGoods (gid) {
       const confirmRes = await this.$confirm(

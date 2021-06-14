@@ -3,8 +3,8 @@
     <!-- 面包屑导航 -->
     <el-breadcrumb separator="/">
       <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>订单管理 </el-breadcrumb-item>
-      <el-breadcrumb-item>订单列表 </el-breadcrumb-item>
+      <el-breadcrumb-item>用户管理 </el-breadcrumb-item>
+      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
     </el-breadcrumb>
 
     <!-- 卡片视图 -->
@@ -439,6 +439,33 @@ export default {
         return this.$message.error('更新状态失败：Error ' + res.meta.msg)
       }
       this.$message.success('更新状态成功')
+    },
+    openAddUserDialog () {
+      // 打开添加用户面板
+      this.addUserDialog = true
+    },
+    addFormUser () {
+      // 添加用户
+      this.$refs.addUserRef.validate(async valid => {
+        if (!valid) {
+          return false
+        } else {
+          const { data: res } = await this.$http.post('users', this.addUser)
+
+          if (res.meta.status !== 201) {
+            return this.$message.error('添加失败: ' + res.meta.msg)
+          }
+          this.$message.success('添加成功')
+          // 添加成功后，关闭面板
+          this.addUserDialog = false
+          // 重新拉取用户列表
+          this.getUserList()
+        }
+      })
+    },
+    closeAddUserDialog () {
+      // 监听 关闭 添加面板
+      this.$refs.addUserRef.resetFields()
     },
     async openEditUser (uid) {
       // 编辑 user

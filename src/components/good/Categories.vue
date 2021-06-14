@@ -252,6 +252,7 @@ export default {
       if (res.meta.status !== 200) return this.$message.error('数据获取失败：' + res.meta.msg)
       this.cateList = res.data.result
       this.total = res.data.total
+      console.log(res.data.result)
     },
     // get父级分类
     async getParentCateList () {

@@ -12,8 +12,19 @@ import './assets/icon/iconfont.css'
 
 // 引入 vue-table-with-tree-grid
 import TreeTable from 'vue-table-with-tree-grid'
+
+// 引入 vue-quill-editor
+import VueQuillEditor from 'vue-quill-editor'
+// 引入 vue-quill-editor style
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
+
 // 使用
 Vue.component('tree-table', TreeTable)
+
+// 使用 vue-quill-editor
+Vue.use(VueQuillEditor)
 
 new Vue({
   router,
