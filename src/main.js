@@ -19,12 +19,16 @@ import VueQuillEditor from 'vue-quill-editor'
 import 'quill/dist/quill.core.css' // import styles
 import 'quill/dist/quill.snow.css' // for snow theme
 import 'quill/dist/quill.bubble.css' // for bubble theme
+// import echarts from 'echarts'
 
 // 使用
 Vue.component('tree-table', TreeTable)
 
 // 使用 vue-quill-editor
 Vue.use(VueQuillEditor)
+
+// 使用 echarts
+// Vue.prototype.$echarts = echarts
 
 // 时间转换
 Vue.filter('dateFormat', function (originVal) {
