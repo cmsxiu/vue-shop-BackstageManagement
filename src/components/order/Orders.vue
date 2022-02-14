@@ -146,7 +146,7 @@
             <!-- props 用来指定配置对象 -->
             <el-cascader
               v-model="editAddressForm.address1"
-              :options="cityData"
+              :options="citydata"
             ></el-cascader>
           </el-form-item>
           <el-form-item
@@ -189,13 +189,13 @@
   </div>
 </template>
 <script>
-import cityData from './cityData.js'
+import citydata from './citydata.js'
 export default {
   data () {
     return {
       ordersList: [],
       total: 0,
-      cityData,
+      citydata,
       // 获取列表的参数对象
       queryInfo: {
         query: '',
@@ -278,7 +278,6 @@ export default {
       // const { data: res } = await this.$http.get('orders', {
       //   params: this.queryInfo
       // })
-      // console.log(this.queryInfo.query)
       // if (res.meta.status !== 200) return this.$message.error('数据获取失败：' + res.meta.msg)
       // if (res.data.total === 0) {
       //   return this.$message.error('未查询到该产品')
@@ -312,9 +311,8 @@ export default {
       this.userInfo = {}
     },
     // 修改地址
-    openEdit (uid) {
+    openEdit () {
       this.editAddressDialog = true
-      console.log(uid)
     },
     // 关闭修改地址面板
     closeEditAddressDialog () {
@@ -330,7 +328,6 @@ export default {
       //     'categories',
       //     this.editAddressForm
       //   )
-      //   console.log(res)
       //   if (res.meta.status !== 201) return this.$message.error('添加失败：' + res.meta.msg)
       //   this.$message.success('添加成功')
       //   this.getcateList()
@@ -353,7 +350,6 @@ export default {
     },
     // 关闭物流查询面板
     closeQueryLogisticsDialog () {
-      console.log('关闭物流查询面板')
     }
   },
   created () {

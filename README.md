@@ -1,4 +1,4 @@
-# vue-shop-backstagemanagement（商城后台管理系统 仅做学习使用）
+# vue-shop-backstagemanagement
 
 ## 安装项目
 
@@ -33,6 +33,18 @@ npm run serve
 ```
 npm run build
 ```
+
+### 生成打包报告
+
+- 打包时，为了直观地发现项目中存在的问题，可以在打包时生成报告。生成报告的方式有两种：
+
+1.  通过命令行参数的形式生成报告（通过 vue-cli 的命令选项可以生成打包报告 report.html）
+
+```
+npm vue-cli-service build --report
+```
+
+2.  通过可视化的 UI 面板直接查看报告
 
 ### Lints and fixes files
 

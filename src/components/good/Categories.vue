@@ -252,7 +252,6 @@ export default {
       if (res.meta.status !== 200) return this.$message.error('数据获取失败：' + res.meta.msg)
       this.cateList = res.data.result
       this.total = res.data.total
-      console.log(res.data.result)
     },
     // get父级分类
     async getParentCateList () {
@@ -300,7 +299,6 @@ export default {
           'categories',
           this.addCateForm
         )
-        console.log(res)
         if (res.meta.status !== 201) return this.$message.error('添加失败：' + res.meta.msg)
         this.$message.success('添加成功')
         this.getcateList()

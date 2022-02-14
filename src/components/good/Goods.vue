@@ -177,7 +177,6 @@ export default {
     },
     // 打开编辑面板
     goEditGoods (data) {
-      console.log(data.goods_id)
       this.$router.push({
         path: '/goods/edit',
         query: {

@@ -21,6 +21,7 @@
         stripe
         border
         :row-style="{lineHeight: '80px'}"
+        row-key="rolesid"
       >
         <el-table-column type="expand">
           <template v-slot="slot">
@@ -39,7 +40,7 @@
               <el-col :span="19">
                 <el-row
                   v-for="(item2, index2) in item.children"
-                  :key="item2.id"
+                  :key="index2"
                   :class="['vcenter', 'border_left', 'border_right', index2 !== 0 ? 'border_top' : '']"
                 >
                   <!-- 二级 -->
@@ -59,16 +60,20 @@
                     <el-tag
                       type="info"
                       closable
-                      v-for="item3 in item2.children"
-                      :key="item3.id"
+                      v-for="(item3, index3) in item2.children"
+                      :key="index3"
                       @close="removeTag(slot.row, item3.id)"
                     >{{item3.authName}}</el-tag>
                   </el-col>
                 </el-row>
               </el-col>
             </el-row>
-            <!-- <pre>{{slot.row}}</pre> -->
           </template>
+        </el-table-column>
+        <el-table-column
+          type="index"
+          label="#"
+        >
         </el-table-column>
         <el-table-column
           prop="roleName"
@@ -307,7 +312,8 @@ export default {
       // 默认选中
       defaultKey: [],
       // role.id
-      roleId: ''
+      roleId: '',
+      barr: []
     }
   },
   methods: {
@@ -316,7 +322,22 @@ export default {
       if (res.meta.status !== 200) {
         return this.$message.error('获取角色列表数据失败')
       }
-      this.rolesList = res.data
+      this.rolesList = this.deepFn(res.data)
+      // this.rolesList = res.data
+    },
+    deepFn (obj) {
+      let objClong = Array.isArray(obj) ? [] : {}
+      if (obj && typeof obj === 'object') {
+        for (var prop in obj) {
+          if (obj[prop] && typeof obj[prop] === 'object') {
+            objClong[prop] = this.deepFn(obj[prop])
+          } else {
+            objClong.rolesid = Math.random() + obj.id
+            objClong[prop] = obj[prop]
+          }
+        }
+      }
+      return objClong
     },
     addRolesBtn () {
       // 添加新角色

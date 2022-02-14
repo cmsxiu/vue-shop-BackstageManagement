@@ -313,14 +313,12 @@ export default {
           this.addForm.attrs.push(newInfo)
         })
         form.attrs = this.addForm.attrs
-        console.log(form)
         // 发起数据请求
         // 商品的名称，必须是唯一的
-        const { data: res } = await this.$http.put('goods/' + this.$route.query.goodsId, form)
+        // const { data: res } = await this.$http.put('goods/' + this.$route.query.goodsId, form)
         // if (res.meta.status !== 201) {
         //   return this.$message.error('修改商品失败！')
         // }
-        console.log(res)
         this.$message.success('修改商品成功！')
         this.$router.push('/goods')
       })

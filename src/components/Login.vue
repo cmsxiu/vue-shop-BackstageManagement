@@ -94,9 +94,9 @@ export default {
               message: res.data.meta.msg
             })
           })
-          .catch(err => {
-            this.$message.error('发生了错误：' + err)
-          })
+        // .catch(err => {
+        //   this.$message.error('发生了错误：' + err)
+        // })
         /*
         const {data: res} = await this.$http.post('login', this.loginForm)
         if (res.meta.status !== 200) {
@@ -117,10 +117,10 @@ export default {
           result
             .then(res => {
               if (res.status === 200) {
-                console.log(res.data.meta.msg)
+                this.$message.info(res.data.meta.msg)
               }
             })
-            .catch(err => console.log(err))
+            .catch(err => this.$message.error(err))
         */
       })
       // validate(callback,)
